@@ -1,54 +1,61 @@
 import express from 'express';
+import 'dotenv/config';
 
 const app = express();
-const port = 8000;
-app.use(express.json());
+const port = process.env.PORT || 3000;
 
-let teaOrder = [];
+app.use(express.json()); // Middleware for parsing JSON
+
+let teaOrders = [];
 let nextId = 1;
 
-// POST Method
+// POST Method - Create a new order
 app.post('/order', (req, res) => {
     const { name, price } = req.body;
+    if (!name || !price) {
+        return res.status(400).send('Name and price are required');
+    }
     const newTea = { id: nextId++, name, price };
-    teaOrder.push(newTea);
+    teaOrders.push(newTea);
     res.status(201).send(newTea);
 });
 
-// GET Method
-app.get('/getorder', (req, res) => {  // Fixed typo here
-    res.status(200).send(teaOrder);
+// GET Method - Retrieve all orders
+app.get('/getorders', (req, res) => { // Renamed for plural consistency
+    res.status(200).send(teaOrders);
 });
 
-// GET by ID
-app.get('/myorder/:id', (req, res) => {
-    const tea = teaOrder.find(t => t.id === parseInt(req.params.id));
+// GET by ID - Retrieve a specific order by ID
+app.get('/order/:id', (req, res) => {
+    const tea = teaOrders.find(t => t.id === parseInt(req.params.id));
     if (!tea) {
         return res.status(404).send('Order not found');
     }
     res.status(200).send(tea);
 });
 
-// PUT Update Method
-app.put('/orderChange/:id', (req, res) => {  // Fixed missing slash here
-    const tea = teaOrder.find(t => t.id === parseInt(req.params.id));
+// PUT Method - Update an existing order by ID
+app.put('/order/:id', (req, res) => {
+    const tea = teaOrders.find(t => t.id === parseInt(req.params.id));
     if (!tea) {
-        return res.status(404).send('Order not found!');
+        return res.status(404).send('Order not found');
     }
+
     const { name, price } = req.body;
-    tea.name = name;
-    tea.price = price;
+    if (name) tea.name = name; // Update only if new values provided
+    if (price) tea.price = price;
+
     res.status(200).send(tea);
 });
 
-// DELETE Method
-app.delete('/removeorder/:id', (req, res) => {
-    const index = teaOrder.findIndex(t => t.id === parseInt(req.params.id));
+// DELETE Method - Remove an order by ID
+app.delete('/order/:id', (req, res) => {
+    const index = teaOrders.findIndex(t => t.id === parseInt(req.params.id));
     if (index === -1) {
         return res.status(404).send('Order not found');
     }
-    teaOrder.splice(index, 1);
-    return res.status(204).send('Order Removed');
+    teaOrders.splice(index, 1);
+    res.status(204).send(); // No content response for successful deletion
 });
 
 app.listen(port, () => {
