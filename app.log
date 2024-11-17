@@ -1,0 +1,5 @@
+{"level":"\u001b[32minfo\u001b[39m","message":"{\"method\":\"GET\",\"url\":\"/getorders\",\"status\":\"200\",\"responseTime\":\"10.295\"}","timestamp":"2024-11-17T07:00:20.199Z"}
+{"level":"\u001b[32minfo\u001b[39m","message":"{\"method\":\"POST\",\"url\":\"/order\",\"status\":\"201\",\"responseTime\":\"0.568\"}","timestamp":"2024-11-17T07:01:55.550Z"}
+{"level":"\u001b[32minfo\u001b[39m","message":"{\"method\":\"GET\",\"url\":\"/getorders\",\"status\":\"200\",\"responseTime\":\"0.332\"}","timestamp":"2024-11-17T07:02:01.072Z"}
+{"level":"\u001b[32minfo\u001b[39m","message":"{\"method\":\"GET\",\"url\":\"/getosrders\",\"status\":\"404\",\"responseTime\":\"2.671\"}","timestamp":"2024-11-17T07:04:16.887Z"}
+{"level":"\u001b[32minfo\u001b[39m","message":"{\"method\":\"GET\",\"url\":\"/getorders\",\"status\":\"200\",\"responseTime\":\"0.365\"}","timestamp":"2024-11-17T07:04:49.929Z"}
